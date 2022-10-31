@@ -48,7 +48,7 @@ class Register {
             console.log('The value given is unsuficient for this purchase!')
             return 'The value given is unsuficient for this purchase!'
         }
-        console.log('Task 1 => changeDue function results\n')
+        console.log('\nTask 1 => changeDue function results\n')
         console.log(`Balance: $${this.updateBalance().toFixed(2)}`)
         console.log(`Purchase: $${cost.toFixed(2)}`)
         console.log(`Accepted: $${given.toFixed(2)}`)
