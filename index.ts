@@ -53,6 +53,7 @@ class Register {
         console.log(`Purchase: $${cost.toFixed(2)}`)
         console.log(`Accepted: $${given.toFixed(2)}`)
         console.log(`Change: $${owed.toFixed(2)}\n`)
+        
         return this.pickDenominations(owed)
     }
     async pickDenominations(owed: number) {
@@ -82,9 +83,6 @@ class Register {
 
         console.log(`\nTotal Change is: $${result.toFixed(2)}`)
         console.log(`Balance: $${this.updateBalance().toFixed(2)}\n`)
-        // call it with the amount of money owed the shopper
-        // Write to the console the specific # of each coin type and bill type to give to the customer
-        // Write the remaining amount of money in the register to the console
     }
 }
 
