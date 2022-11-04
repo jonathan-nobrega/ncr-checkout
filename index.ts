@@ -2,7 +2,7 @@ var readline = require('readline');
 
 class Money {
     name: string; // name of the money instance
-    amount: number; // quantity of notes or coins
+    amount: number; // quantity of bills or coins
     value: number; // actual currency value
     balance: number; // final product of amount and value
 
@@ -27,14 +27,10 @@ class Money {
 
 class Register {
     wallet: Money[]; // collection of money instances to be used at checkout payment
-    cost: number; // cost of a product
-    given: number; // amount of money given by the client
     balance: number;
 
     constructor(wallet: Money[]) {
         this.wallet = wallet
-        this.cost = 0
-        this.given = 0
         this.balance = 0
         console.log(`\n***** Auto Register Started *****\n\n`)
     }
@@ -45,7 +41,7 @@ class Register {
     changeDue(cost: number, given: number) {
         const owed = given - cost
         if (owed < 0) {
-            console.log('The value given is unsuficient for this purchase!')
+            console.log('\nThe value given is unsuficient for this purchase!')
             return 'The value given is unsuficient for this purchase!'
         }
         console.log('\nTask 1 => changeDue function results\n')
@@ -56,14 +52,14 @@ class Register {
         
         return this.pickDenominations(owed)
     }
-    async pickDenominations(owed: number) {
+    pickDenominations(owed: number) {
         console.log('Task 2 => pickDenominations function results\n')
 
         // Sorting our Money instanecs so we make sure to use higher bills first
         const sortedWallet = this.wallet.sort((a, b) => a.value + b.value);
 
         // Sum all money used from the wallet
-        const result = await sortedWallet.map(money => {
+        const result = sortedWallet.map(money => {
             if (owed > money.value) {
                 const moneyQuantity = Math.trunc(owed / money.value) // example: Math.trunc(5.35/5) = 1 
                 const moneyAmount = moneyQuantity * money.value
@@ -106,9 +102,10 @@ var rl = readline.createInterface({
 
 console.log('Assignment suggestions: Purchase $4.63, Payment: $10\n')
 
-rl.question("How much is the purchase? ", async (cost: number) => {
-    rl.question("How much are you paying? ", async (given: number) => {
-        await register.changeDue(Number(cost), Number(given))
+// readline module provides an interface for reading data from a Readable stream 
+rl.question("How much is the purchase? ", (cost: number) => {
+    rl.question("How much are you paying? ", (given: number) => {
+        register.changeDue(Number(cost), Number(given))
         rl.close()
     })
 });
